@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Budget Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      margin: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    input, select, button {
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background: #007bff;
+      color: white;
+    }
+    .summary {
+      margin-top: 15px;
+      padding: 10px;
+      background: #e9ecef;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Budget Tracker</h1>
+  <div class="container">
+    <label>Description</label>
+    <input type="text" id="desc" placeholder="e.g. Groceries">
+    
+    <label>Amount</label>
+    <input type="number" id="amount" placeholder="e.g. 500">
+    
+    <label>Type</label>
+    <select id="type">
+      <option value="income">Income</option>
+      <option value="expense">Expense</option>
+    </select>
+    
+    <button onclick="addTransaction()">Add</button>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody id="transactions"></tbody>
+    </table>
+    
+    <div class="summary">
+      <p><strong>Total Income:</strong> ₹<span id="totalIncome">0</span></p>
+      <p><strong>Total Expenses:</strong> ₹<span id="totalExpense">0</span></p>
+      <p><strong>Balance:</strong> ₹<span id="balance">0</span></p>
+    </div>
+  </div>
+
+  <script>
+    let totalIncome = 0;
+    let totalExpense = 0;
+
+    function addTransaction() {
+      const desc = document.getElementById("desc").value;
+      const amount = Number(document.getElementById("amount").value);
+      const type = document.getElementById("type").value;
+
+      if (!desc || !amount) {
+        alert("Please enter description and amount");
+        return;
+      }
+
+      // Add row in table
+      const table = document.getElementById("transactions");
+      const row = table.insertRow();
+      row.insertCell(0).innerText = desc;
+      row.insertCell(1).innerText = "₹" + amount;
+      row.insertCell(2).innerText = type;
+
+      // Update totals
+      if (type === "income") {
+        totalIncome += amount;
+      } else {
+        totalExpense += amount;
+      }
+
+      const balance = totalIncome - totalExpense;
+
+      document.getElementById("totalIncome").innerText = totalIncome;
+      document.getElementById("totalExpense").innerText = totalExpense;
+      document.getElementById("balance").innerText = balance;
+
+      // Reset fields
+      document.getElementById("desc").value = "";
+      document.getElementById("amount").value = "";
+    }
+  </script>
+</body>
+</html>
