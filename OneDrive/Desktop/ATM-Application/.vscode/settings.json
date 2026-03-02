@@ -1,0 +1,12 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ]
+}
+
+/*
+ATM-Application
+├── src
+├── JRE System Library
+└── Referenced Libraries
+    └── mysql-connector-j-9.x.x.jar   */
